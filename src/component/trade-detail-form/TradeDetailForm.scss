@@ -1,0 +1,54 @@
+@import '../../config.scss';
+
+.trade_detail_container {
+  color: white;
+  width: 20%;
+  background-color: $bg_grey;
+  padding: 1rem;
+  border-radius: 3px;
+
+  .form-control {
+    background: $input_bg;
+  }
+}
+
+.chart_patterns {
+  label {
+    width: 30% !important;
+  }
+
+  .dropdown {
+    width: 20%;
+  }
+
+  .form-control {
+    width: 50%;
+  }
+}
+
+.chart_indicators {
+  width: 100%;
+
+  .form-label {
+    width: 30%;
+  }
+
+  .dropdown {
+    width: 20%;
+  }
+
+  .form-control {
+    width: 50%;
+  }
+}
+
+.trade_targets {
+    .col{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+  label {
+    white-space: nowrap;
+  }
+}

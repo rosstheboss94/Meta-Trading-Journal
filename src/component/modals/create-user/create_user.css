@@ -1,0 +1,19 @@
+.google-logo-img{
+    height: 40px;
+    width: 40px;
+    border-radius: 3px;
+   
+}
+.create_user_modal .form-control{
+    background-color: rgb(18, 21, 22) !important;
+
+}
+.create_user_modal input::placeholder{
+    color: rgb(33,37,41) !important;
+
+}
+
+
+.modal-header{
+    background-color: #010f01;
+}

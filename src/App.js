@@ -1,24 +1,21 @@
-import logo from './logo.svg';
-import './App.css';
+import Navigation from "./component/navbar/navigation";
+import Journals from "../src/pages/journal/journal";
+import TradeDetail from "../src/component/trade-detail-form/TradeDetailForm";
+import { Fragment } from "react";
+import signIn from "./component/sign-in/sign-in";
+import SignUp from "./component/sign-up/sign-up";
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Fragment>
+      <Navigation />
+      <div className="d-flex flex-column h-100">
+        <div className="d-flex justify-content-between p-3">
+          <Journals />
+          <TradeDetail />
+        </div>
+      </div>
+    </Fragment>
   );
 }
 
