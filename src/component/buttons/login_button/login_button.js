@@ -5,12 +5,11 @@ import {
   GoogleAuthProvider,
   signInWithPopup,
 } from "firebase/auth";
-import firebaseApp from "../../firebase/firebase";
+import firebaseApp from "../../../firebase/firebase";
 import { Form, Button, Row, Modal } from "react-bootstrap";
-import "./sign-up.css";
 import { useDispatch, useSelector } from "react-redux";
-import { authActions } from "../../store/slices/authenticationSlice";
-import CreateUserModal from "../modals/create-user/create_user";
+import { authActions } from "../../../store/slices/authenticationSlice";
+import CreateUserModal from "../../modals/create-user/create_user";
 
 
 const provider = new GoogleAuthProvider();
@@ -18,7 +17,7 @@ const auth = getAuth(firebaseApp);
 
 
 
-const SignUp = () => {
+const LoginButton = () => {
   const emailRef = useRef();
   const passwordRef = useRef();
   const dispatch = useDispatch();
@@ -78,4 +77,4 @@ const SignUp = () => {
     
 };
 
-export default SignUp;
+export default LoginButton;

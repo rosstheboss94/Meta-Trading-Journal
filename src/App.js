@@ -2,8 +2,7 @@ import Navigation from "./component/navbar/navigation";
 import Journals from "../src/pages/journal/journal";
 import TradeDetail from "../src/component/trade-detail-form/TradeDetailForm";
 import { Fragment } from "react";
-import signIn from "./component/sign-in/sign-in";
-import SignUp from "./component/sign-up/sign-up";
+
 
 function App() {
   return (

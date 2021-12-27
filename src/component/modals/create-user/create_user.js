@@ -1,9 +1,13 @@
 import { useRef } from "react";
+import firebaseApp from "../../../firebase/firebase";
 import { useSelector, useDispatch } from "react-redux";
 import { Form, Button, Modal } from "react-bootstrap";
 import googleLogo from "../../../assets/google-logo.png";
 import { authActions } from "../../../store/slices/authenticationSlice";
+import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
 import "./create_user.css";
+
+
 
 const CreateUserModal = () => {
   const emailRef = useRef();
@@ -11,6 +15,21 @@ const CreateUserModal = () => {
   const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
   const dispatch = useDispatch();
 
+  const CreateUserWithEmailAndPass = () => {
+    const auth = getAuth(firebaseApp);
+    createUserWithEmailAndPassword(auth, emailRef.current.value, passwordRef.current.value)
+      .then((userCredential) => {
+        // Signed in
+        const user = userCredential.user;
+        // ...
+      })
+      .catch((error) => {
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        // ..
+      });
+  };
+  
   return (
     <Modal
       show={isLoggedIn}
@@ -57,8 +76,8 @@ const CreateUserModal = () => {
         </Form>
       </Modal.Body>
       <Modal.Footer className="d-flex justify-content-center border-top-0">
-        <Button className="w-75" variant="success" type="submit">
-          Sign In
+        <Button className="w-75" variant="success" type="submit" onClick={CreateUserWithEmailAndPass}>
+          Sign-Up
         </Button>
       </Modal.Footer>
     </Modal>
