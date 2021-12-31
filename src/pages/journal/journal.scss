@@ -1,0 +1,23 @@
+.journal_container{
+    height: 80%;
+    border: 1px solid red;
+    width: 60% !important;
+    margin: 0 !important;
+
+    h1{
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        color: black;
+        border-bottom: 1px solid #718093;
+
+        button{
+            margin-left: auto;
+        }
+    }
+
+    
+    
+}
+
+

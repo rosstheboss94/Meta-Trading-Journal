@@ -1,0 +1,33 @@
+@import "../../../config.scss";
+
+.google-logo-img{
+    height: 40px;
+    width: 40px;
+    border-radius: 3px;
+   
+}
+.create_user_modal{
+ 
+    
+}
+
+.test{
+    
+}
+.create_user_modal .form-control{
+    background-color: rgba(18, 21, 22, 0.500) !important;
+
+}
+.create_user_modal input::placeholder{
+    color: rgb(33,37,41) !important;
+
+}
+
+
+.modal-header{
+    background-color: $bg_color;
+}
+
+.create_an_account_link{
+    color: $purp_light;
+}

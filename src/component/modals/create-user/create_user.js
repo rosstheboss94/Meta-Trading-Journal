@@ -4,43 +4,60 @@ import { useSelector, useDispatch } from "react-redux";
 import { Form, Button, Modal } from "react-bootstrap";
 import googleLogo from "../../../assets/google-logo.png";
 import { authActions } from "../../../store/slices/authenticationSlice";
+import { modalActions } from "../../../store/slices/modal-state-slice";
 import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
 import "./create_user.css";
+import { doc, setDoc } from "firebase/firestore";
+import { db } from "../../../firebase/firebase";
 
-
-
-const CreateUserModal = () => {
+const CreateUserModal = (props) => {
   const emailRef = useRef();
   const passwordRef = useRef();
-  const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
+  const showModal = useSelector((state) => state.modal.createUserModalState);
   const dispatch = useDispatch();
 
   const CreateUserWithEmailAndPass = () => {
+    let user;
     const auth = getAuth(firebaseApp);
-    createUserWithEmailAndPassword(auth, emailRef.current.value, passwordRef.current.value)
+
+    createUserWithEmailAndPassword(
+      auth,
+      emailRef.current.value,
+      passwordRef.current.value
+    )
       .then((userCredential) => {
-        // Signed in
-        const user = userCredential.user;
-        // ...
+        user = userCredential.user;
+        AddUserToDb(user);
       })
-      .catch((error) => {
-        const errorCode = error.code;
-        const errorMessage = error.message;
-        // ..
-      });
+      .catch((error) => {});
+
+    dispatch(authActions.userLoggingIn({ userLoginStatus: false }));
+    dispatch(modalActions.closeModal())
   };
-  
+
+  const AddUserToDb = async (user) => {
+    const usersRef = doc(
+      db,
+      "users",
+      user.email,
+      "journals",
+      "journal1",
+      "trades",
+      "trade1"
+    );
+    const setDocResult = await setDoc(usersRef, {});
+    console.log(setDocResult);
+  };
+
   return (
     <Modal
-      show={isLoggedIn}
+      show={showModal}
       size="md"
       aria-labelledby="contained-modal-title-vcenter"
       className="create_user_modal"
       contentClassName="bg-dark"
       keyboard={true}
-      onHide={() => {
-        dispatch(authActions.userLoggingIn({ userLoginStatus: false }));
-      }}
+      onHide = {() => {dispatch(modalActions.closeModal())}}
       centered
     >
       <Modal.Header className="text-white border-bottom-0" closeButton>
@@ -76,7 +93,12 @@ const CreateUserModal = () => {
         </Form>
       </Modal.Body>
       <Modal.Footer className="d-flex justify-content-center border-top-0">
-        <Button className="w-75" variant="success" type="submit" onClick={CreateUserWithEmailAndPass}>
+        <Button
+          className="w-75"
+          variant="success"
+          type="submit"
+          onClick={CreateUserWithEmailAndPass}
+        >
           Sign-Up
         </Button>
       </Modal.Footer>

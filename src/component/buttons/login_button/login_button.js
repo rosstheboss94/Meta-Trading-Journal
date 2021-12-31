@@ -1,47 +1,44 @@
-import { Fragment, useRef } from "react";
-import {
-  getAuth,
-  createUserWithEmailAndPassword,
-  GoogleAuthProvider,
-  signInWithPopup,
-} from "firebase/auth";
+import { Fragment } from "react";
+import { getAuth, GoogleAuthProvider } from "firebase/auth";
 import firebaseApp from "../../../firebase/firebase";
-import { Form, Button, Row, Modal } from "react-bootstrap";
+import { Button } from "react-bootstrap";
+import LoginModal from "../../modals/login/login";
 import { useDispatch, useSelector } from "react-redux";
-import { authActions } from "../../../store/slices/authenticationSlice";
-import CreateUserModal from "../../modals/create-user/create_user";
-
+import { modalActions } from "../../../store/slices/modal-state-slice";
 
 const provider = new GoogleAuthProvider();
 const auth = getAuth(firebaseApp);
 
-
-
 const LoginButton = () => {
-  const emailRef = useRef();
-  const passwordRef = useRef();
+  const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
+  const currentUser = useSelector((state) => state.auth.currentUser);
   const dispatch = useDispatch();
-  const isLoggedIn = useSelector(state => state.auth.isLoggedIn)
 
-  const createUser = (e) => {
+  return (
+    <Fragment>
+      <span>{currentUser}</span>
+      <Button
+        className="btn btn-success"
+        onClick={(e) => {
+          e.preventDefault();
+          dispatch(modalActions.showLoginModal({ modalState: true }));
+        }}
+      >
+        Log In
+      </Button>
+      {!isLoggedIn && <LoginModal />}
+    </Fragment>
+  );
+};
+
+export default LoginButton;
+
+/*const createUser = (e) => {
     e.preventDefault();
-    createUserWithEmailAndPassword(
-      auth,
-      emailRef.current.value,
-      passwordRef.current.value
-    )
-      .then((userCredential) => {
-        // Signed in
-        const user = userCredential.user;
-        // ...
-      })
-      .catch((error) => {
-        const errorCode = error.code;
-        const errorMessage = error.message;
-        // ..
-      });
+    
+      testfunc();
 
-    signInWithPopup(auth, provider)
+    /*signInWithPopup(auth, provider)
       .then((result) => {
         // This gives you a Google Access Token. You can use it to access the Google API.
         const credential = GoogleAuthProvider.credentialFromResult(result);
@@ -62,19 +59,9 @@ const LoginButton = () => {
         console.log(error);
         // ...
       });
-  };
- 
-  const testfunction = () => {
-    dispatch(authActions.userLoggingIn({userLoginStatus:true}))
-  }
-  return (
-    <Fragment>
-      <Button className="btn btn-success" onClick={testfunction}>Log In</Button>
-    {isLoggedIn && <CreateUserModal />}
-    </Fragment>
-  );
-    
-    
-};
-
-export default LoginButton;
+  };*/
+/*const showLoginModal = () => {
+    setModalStatus((ps) => {
+      return !ps;
+    });
+  };*/
