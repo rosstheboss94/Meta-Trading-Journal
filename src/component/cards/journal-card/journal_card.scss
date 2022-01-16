@@ -7,7 +7,7 @@
     display: flex;
     flex-direction: row;
     height: 100px;
-    background-color: rgb(218, 216, 216);
+    background-color: #6c757d;
 
     .col{
         /*height: 90%;*/
@@ -22,7 +22,7 @@
         flex-direction: column;
         justify-content: center;
         align-items: center;
-        color: black;
+        color: white;
     }
 
     .journal-win-percentage{
@@ -34,9 +34,12 @@
 
     .journal-notes{
         border-radius: 3px;
-        background-color: #6c757d;
-        color: black;
+        background-color: #585f66;
+        color: white;
         width: 100%;
         height: 100%;
     }
 }
+
+/*#417A59
+#6c757d*/

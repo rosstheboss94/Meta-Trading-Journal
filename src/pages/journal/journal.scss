@@ -6,18 +6,29 @@
     margin: 0 !important;
     padding: 1rem;
 
-    h3{
+   
+
+    .journal-container-header{
         display: flex;
         flex-direction: row;
         align-items: center;
-        color: white;
+        border-bottom: 1px solid #718093;
+        width: 100%;
+        padding: .25rem;
+        margin-bottom: .50rem;
 
-        button{
-            margin-left: auto;
+        h3{
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            color: white;
+            width: 100%;
+    
+            button{
+                margin-left: auto;
+            }
         }
-    }
 
-    .journal-container-header{
         button{
             background: linear-gradient(to right, rgb(2, 206, 2), white);
             color: transparent;

@@ -25,6 +25,8 @@
 
         button{
             width: 20%;
+            margin-right: .5rem;
+            border: none;
         }
     }
 
@@ -66,7 +68,15 @@
         justify-content: end;
         height: 40%;
         font-size: 1rem;
+
+        a{
+           text-decoration: none; 
+        }
     }
 }
+
+.disable-button{
+    background-color: #6c757d !important;
+  }
 
 

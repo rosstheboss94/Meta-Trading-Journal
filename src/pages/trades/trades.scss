@@ -1,15 +1,19 @@
 .trades_container {
   height: 100%;
-  width: 60% !important;
+  width: 100% !important;
   margin: 0 !important;
   color: white;
   
+  
 
-  h1 {
+  .trades-header {
     display: flex;
     flex-direction: row;
     align-items: center;
     border-bottom: 1px solid #718093;
+    width: 100%;
+    padding: .25rem;
+    margin-bottom: .50rem;
 
     p {
       font-size: 1rem;

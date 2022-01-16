@@ -1,10 +1,13 @@
+@import "../../../config.scss";
+
 .trade-card {
-    color: black;
+  color: black;
   .trade-labels {
     .col {
       display: flex;
       flex-direction: row;
       justify-content: center;
+      font-weight: bold;
     }
   }
 
@@ -14,5 +17,23 @@
       flex-direction: row;
       justify-content: center;
     }
+  }
+}
+
+.trade-win {
+  box-shadow: 0 0 8px $emerald_green !important;
+  border: 1px solid $emerald_green !important;
+}
+
+.trade-loss {
+  box-shadow: 0 0 8px red !important;
+  border: 1px solid red !important;
+}
+
+.page-number{
+  margin-right: .25rem;
+  a{
+    background-color: #6c757d;
+    color: white;
   }
 }

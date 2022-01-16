@@ -78,21 +78,21 @@ const Journal = () => {
         <Form.Control ref={journalStratRef} as="textarea" />
       </Form.Group>
       <Form.Group className="d-flex justify-content-end">
-        <Button onClick={addJournal}>Add Journal</Button>
+        <Button onClick={addJournal} variant="secondary">Add Journal</Button>
       </Form.Group>
     </Form>
   );
 
   return (
     <div className="journal_container d-flex flex-column">
-      <Row className="journal-container-header">
+      <div className="journal-container-header">
         <h3>
           My Journals{" "}
           <Button variant="success" onClick={newJournal}>
             New Journal
           </Button>{" "}
         </h3>
-      </Row>
+      </div>
       <section className="d-flex flex-column justify-content-center mt-3 h-100">
         {displayJournalForm ? journalForm : <LoginModal />}
         {!displayJournalForm && <JournalCard />}

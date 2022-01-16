@@ -128,8 +128,8 @@ const NewsPanel = () => {
       </Row>
       <Row className="news-market">
         <div>
-          <Button onClick={getStockNews}>Stock</Button>
-          <Button onClick={getCryptoNews}>Crypto</Button>
+          <Button onClick={getStockNews} className={!stockNewsLoaded && "disable-button"}>Stock</Button>
+          <Button onClick={getCryptoNews} className={!cryptoNewsLoaded && "disable-button"}>Crypto</Button>
         </div>
       </Row>
       <Row className="news-papers">

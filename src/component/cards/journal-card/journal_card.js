@@ -5,6 +5,7 @@ import { Card, Col } from "react-bootstrap";
 import { journalActions } from "../../../store/slices/journal_slice";
 import { db } from "../../../firebase/firebase";
 import JournalIcon from "../../../assets/journal-icon.png";
+import Paginat from "../../pagination/pagination";
 import "./journal_card.scss";
 
 const JournalCard = () => {
