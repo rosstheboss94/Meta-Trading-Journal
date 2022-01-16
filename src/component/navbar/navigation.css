@@ -1,3 +1,13 @@
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap');
+
 .navbar-brand{
-   color: white !important;
+    font-size: 2rem !important;
+   font-family: 'Bebas Neue', cursive;
+   color: #2ecc71 !important;
+}
+
+.nav-container{
+  margin-left: 1.5rem;
+  margin-right: 1.5rem;
+  height: 10vh;
 }

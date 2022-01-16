@@ -1,12 +1,29 @@
-import { Fragment, useState } from "react";
+import { Fragment, useState, useEffect, useRef } from "react";
 import Form from "react-bootstrap/Form";
 import Dropdown from "react-bootstrap/Dropdown";
 import "./TradeDetailForm.scss";
-import { Button, Row, Col } from "react-bootstrap";
+import { Button, Row, Col, Offcanvas } from "react-bootstrap";
+import { journalActions } from "../../store/slices/journal_slice";
+import { useSelector, useDispatch } from "react-redux";
+import { db } from "../../firebase/firebase";
+import { doc, setDoc, collection } from "firebase/firestore";
 
 const TradeDetailForm = () => {
   const [selectedChartPatterns, setSelectedChartPatterns] = useState([]);
   const [selectedChartIndicators, setSelectedChartIndicators] = useState([]);
+  const marketRef = useRef("");
+  const tickerRef = useRef("");
+  const tradeTargetRef = useRef();
+  const enterTrade = useSelector((state) => state.journal.enterTrade);
+  const selectedJournal = useSelector((state) => state.journal.selectedJournal);
+  const currentUser = useSelector((state) => state.auth.currentUser);
+  const dispatch = useDispatch();
+  console.log(tradeTargetRef);
+
+  useEffect(() => {
+    console.log(selectedChartPatterns.join(" "));
+  }, [selectedChartIndicators, selectedChartPatterns]);
+
   const ChartPatterns = [
     "Head and shoulders",
     "Double top",
@@ -60,83 +77,153 @@ const TradeDetailForm = () => {
     }
   };
 
+  const addTrade = (e) => {
+    e.preventDefault();
+    const tradeDocRef = doc(
+      collection(
+        db,
+        "users",
+        currentUser,
+        "journals",
+        selectedJournal,
+        "trades"
+      )
+    );
+
+    setDoc(
+      tradeDocRef,
+      {
+        Market: marketRef.current.value,
+        Ticker: tickerRef.current.value,
+        "Chart Patterns": selectedChartPatterns.join(" "),
+        "Chart indicators": selectedChartIndicators.join(" "),
+        "Take Profit": tradeTargetRef.current.childNodes[0].children[1].value,
+        Entry: tradeTargetRef.current.childNodes[1].children[1].value,
+        "Stop Loss": tradeTargetRef.current.childNodes[1].children[1].value,
+      },
+      { merge: true }
+    );
+
+    dispatch(journalActions.goToTradeForm({ enterTrade: false }))
+  };
+
   return (
     <Fragment>
-      <Form className="trade_detail_container">
-        <h1>Trade Detail</h1>
-        <Form.Group className="trade_market">
-          <Form.Label>Market:</Form.Label>
-          <Form.Select>
-            <option>Crypto</option>
-            <option>Stocks</option>
-          </Form.Select>
-        </Form.Group>
+      <Offcanvas
+        show={enterTrade}
+        onHide={() => {
+          dispatch(journalActions.goToTradeForm({ enterTrade: false }));
+        }}
+        placement="end"
+        classname="trade-canvas"
+      >
+        <Offcanvas.Header closeButton>
+          <Offcanvas.Title>Trade Detail</Offcanvas.Title>
+        </Offcanvas.Header>
+        <Offcanvas.Body>
+          <Form className="trade_detail_container">
+            <Form.Group className="trade_market">
+              <Form.Label>Market:</Form.Label>
+              <Form.Select ref={marketRef}>
+                <option value="Crypto">Crypto</option>
+                <option value="Stocks">Stocks</option>
+              </Form.Select>
+            </Form.Group>
 
-        <Form.Group className="trade_ticker mb-3">
-          <Form.Label>Ticker:</Form.Label>
-          <Form.Control type="text" />
-        </Form.Group>
+            <Form.Group className="trade_ticker">
+              <Form.Label>Ticker:</Form.Label>
+              <Form.Control ref={tickerRef} type="text" />
+            </Form.Group>
 
-        <Form.Group className="chart_patterns d-flex mb-3">
-          <Form.Label>Indicators:</Form.Label>
-          <Dropdown
-            className="d-inline mx-2"
-            onSelect={addChartPattern}
-            autoClose={false}
-          >
-            <Dropdown.Toggle id="dropdown-autoclose-false"></Dropdown.Toggle>
-            <Dropdown.Menu>{ChartPatterns}</Dropdown.Menu>
-          </Dropdown>
+            <Form.Group className="chart_patterns">
+              <Form.Label>
+                Chart Patterns:{" "}
+                <Dropdown
+                  className="d-inline mx-2"
+                  onSelect={addChartPattern}
+                  autoClose={false}
+                >
+                  <Dropdown.Toggle id="dropdown-autoclose-false"></Dropdown.Toggle>
+                  <Dropdown.Menu>{ChartPatterns}</Dropdown.Menu>
+                </Dropdown>
+              </Form.Label>
 
-          <Form.Control
-            type="textarea"
-            value={selectedChartPatterns.join(" ")}
-          />
-        </Form.Group>
+              <Form.Control
+                as="textarea"
+                rows="3"
+                value={selectedChartPatterns.join(" ")}
+              />
+            </Form.Group>
 
-        <Form.Group className="chart_indicators d-flex align-items-center mb-1">
-          <Form.Label>Indicators:</Form.Label>
-          <Dropdown
-            className="d-inline mx-2"
-            onSelect={addChartIndicators}
-            autoClose={false}
-          >
-            <Dropdown.Toggle id="dropdown-autoclose-false"></Dropdown.Toggle>
-            <Dropdown.Menu>{ChartIndicators}</Dropdown.Menu>
-          </Dropdown>
+            <Form.Group className="chart_indicators">
+              <Form.Label>
+                Chart Indicators:{" "}
+                <Dropdown
+                  className="d-inline mx-2"
+                  onSelect={addChartIndicators}
+                  autoClose={false}
+                >
+                  <Dropdown.Toggle id="dropdown-autoclose-false"></Dropdown.Toggle>
+                  <Dropdown.Menu>{ChartIndicators}</Dropdown.Menu>
+                </Dropdown>
+              </Form.Label>
 
+              <Form.Control
+                as="textarea"
+                rows="3"
+                value={selectedChartIndicators.join(" ")}
+              />
+            </Form.Group>
 
-        </Form.Group>
+            <Row ref={tradeTargetRef} className="trade_targets">
+              <Form.Group as={Col} controlId="formGridState">
+                <Form.Label>Take Profit:</Form.Label>
+                <Form.Control
+                  type="text"
+                  onChange={() => {
+                    console.log(
+                      tradeTargetRef.current.childNodes[0].children[1].value
+                    );
+                  }}
+                />
+              </Form.Group>
+              <Form.Group as={Col} controlId="formGridCity">
+                <Form.Label>Entry:</Form.Label>
+                <Form.Control
+                  type="text"
+                  onChange={() => {
+                    console.log(
+                      tradeTargetRef.current.childNodes[1].children[1].value
+                    );
+                  }}
+                />
+              </Form.Group>
 
-        <Form.Control
-        className="mb-3"
-            as="textarea"
-            rows="5"
-            value={selectedChartIndicators.join(" ")}
-          />
+              <Form.Group as={Col} controlId="formGridZip">
+                <Form.Label>Stop Loss:</Form.Label>
+                <Form.Control
+                  type="text"
+                  onChange={() => {
+                    console.log(
+                      tradeTargetRef.current.childNodes[2].children[1].value
+                    );
+                  }}
+                />
+              </Form.Group>
+            </Row>
 
-        <Row className="trade_targets mb-3">
-          <Form.Group as={Col} controlId="formGridState">
-            <Form.Label>Take Profit:</Form.Label>
-            <Form.Control type="text" />
-          </Form.Group>
-          <Form.Group as={Col} controlId="formGridCity">
-            <Form.Label>Entry:</Form.Label>
-            <Form.Control type="text" />
-          </Form.Group>
-
-          <Form.Group as={Col} controlId="formGridZip">
-            <Form.Label>Stop Loss:</Form.Label>
-            <Form.Control type="text" />
-          </Form.Group>
-        </Row>
-
-        <Form.Group className="d-flex justify-content-center">
-          <Button className="btn btn-success" type="submit">
-            Add Trade
-          </Button>
-        </Form.Group>
-      </Form>
+            <Form.Group className="d-flex justify-content-center">
+              <Button
+                className="btn btn-success"
+                type="submit"
+                onClick={addTrade}
+              >
+                Add Trade
+              </Button>
+            </Form.Group>
+          </Form>
+        </Offcanvas.Body>
+      </Offcanvas>
     </Fragment>
   );
 };

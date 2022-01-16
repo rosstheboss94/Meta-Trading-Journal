@@ -1,0 +1,24 @@
+.trades_container {
+  height: 100%;
+  width: 60% !important;
+  margin: 0 !important;
+  color: white;
+  
+
+  h1 {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    border-bottom: 1px solid #718093;
+
+    p {
+      font-size: 1rem;
+      margin: 0 0 0 1.5rem;
+      align-self: flex-end;
+    }
+
+    button {
+      margin-left: auto;
+    }
+  }
+}

@@ -1,0 +1,19 @@
+.app {
+  display: flex;
+  flex-direction: row;
+
+  height: 90%;
+  width: 100%;
+}
+
+.journal-content {
+  width: 60%;
+  
+}
+
+.news-content {
+  height: 100%;
+  width: 40%;
+  
+  padding: 1rem;
+}

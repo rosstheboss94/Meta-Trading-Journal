@@ -1,10 +1,14 @@
 @import '../../config.scss';
+.offcanvas{
+  background-color: $bg_grey !important;
+  color: white;
+}
 
 .trade_detail_container {
   color: white;
-  width: 20%;
+  
   background-color: $bg_grey;
-  padding: 1rem;
+  
   border-radius: 3px;
 
   .form-control {
@@ -12,37 +16,40 @@
   }
 }
 
+.trade_market{
+  margin-bottom: 1.5rem;
+}
+
+.trade_ticker{
+  margin-bottom: 1.5rem;
+}
+
 .chart_patterns {
-  label {
-    width: 30% !important;
-  }
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 1.5rem;
+  width: 100%;
 
-  .dropdown {
-    width: 20%;
-  }
-
-  .form-control {
-    width: 50%;
+  .form-label{
+    display: flex;
+    flex-direction: row;
   }
 }
 
 .chart_indicators {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 1.5rem;
   width: 100%;
 
-  .form-label {
-    width: 30%;
-  }
-
-  .dropdown {
-    width: 20%;
-  }
-
-  .form-control {
-    width: 50%;
+  .form-label{
+    display: flex;
+    flex-direction: row;
   }
 }
 
 .trade_targets {
+  margin-bottom: 1.5rem;
     .col{
         display: flex;
         flex-direction: column;

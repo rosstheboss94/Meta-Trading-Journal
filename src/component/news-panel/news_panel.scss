@@ -1,0 +1,72 @@
+.news-panel{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    color: white;
+
+    .news-header{
+        
+        height: 10%;
+    }
+
+    .news-market{
+        height: 20%;
+        width: 100%;
+
+        div{
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+            height: 40%;
+        }
+
+        button{
+            width: 20%;
+        }
+    }
+
+    .news-papers{
+        height: 70%;
+        width: 100%;
+    }
+
+    .card{
+        height: 15%;
+        background-color: black;
+    }
+    .card-body{
+        display: flex;
+        flex-direction: row;
+        height: 20%;
+        width: 100%;
+        padding:0;
+    }
+
+    .news-img-container{
+        img{
+            height: 100%;
+            width: 100%;
+        }
+    }
+
+    .news-title{
+        color: white;
+        font-size: 1rem;
+        height: 60%;
+        padding-left: .50rem;
+        padding-right: .50rem;
+        margin-bottom: 0;
+    }
+
+    .news-link{
+        display: flex;
+        justify-content: end;
+        height: 40%;
+        font-size: 1rem;
+    }
+}
+
+

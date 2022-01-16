@@ -1,23 +1,69 @@
-.journal_container{
-    height: 80%;
-    border: 1px solid red;
-    width: 60% !important;
-    margin: 0 !important;
+@import "../../config";
 
-    h1{
+.journal_container{
+    height: 100%;
+    width: 100% !important;
+    margin: 0 !important;
+    padding: 1rem;
+
+    h3{
         display: flex;
         flex-direction: row;
         align-items: center;
-        color: black;
-        border-bottom: 1px solid #718093;
+        color: white;
 
         button{
             margin-left: auto;
         }
     }
 
-    
-    
+    .journal-container-header{
+        button{
+            background: linear-gradient(to right, rgb(2, 206, 2), white);
+            color: transparent;
+            background-clip: text;
+            border: none;
+
+        }
+    }
+
+    .journal-form{
+        padding: 1.5rem;
+        background-color: $bg_grey;
+        border-radius: 3px;
+
+        .form-label{
+            color: #707880;
+        }
+        p{
+            color: #87929b;
+            font-size: 1.5rem;
+        }
+        p span{
+            font-size: 1.5rem;
+            color: $emerald_green;
+        }
+    }
+
+    .journal-form-header{
+        button{
+            height: 80%;
+            padding: 0;
+            border: none;
+            background-color: $bg_grey;
+            border-radius: 3px;
+        }
+
+        svg{
+            height: 100%;
+            width: 100%;
+            border-radius: 0;
+            color: red;
+            border-radius: 3px;
+
+        }
+    }
+  
 }
 
 

@@ -6,10 +6,10 @@ import "./navigation.css"
 const navigation = () => {
   
   return (
-    <Navbar>
+    <Navbar className="nav-container">
       
-        <Navbar.Brand href="#home">MetaTrading</Navbar.Brand>
-        <Nav className="justify-content-end w-100" variant="pills" defaultActiveKey="#home">
+        <Navbar.Brand href="#home">Meta Trading Journal</Navbar.Brand>
+        <Nav className="justify-content-end align-items-center w-100" variant="pills" defaultActiveKey="#home">
           <LoginButton />
         </Nav>
       
