@@ -1,4 +1,4 @@
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Container, Row, Button, Form, Col } from "react-bootstrap";
 import { setDoc, doc } from "firebase/firestore";
@@ -15,6 +15,14 @@ const Journal = () => {
   const journalNameRef = useRef("");
   const journalStratRef = useRef("");
   const [displayJournalForm, setDisplayJournalForm] = useState(false);
+
+  useEffect(() => {
+    console.log("in journal ue");
+    setDisplayJournalForm(false);
+    return () => {
+      setDisplayJournalForm(false);
+    }
+  }, [isLoggedIn, currentUser])
 
   const newJournal = () => {
     if (isLoggedIn) {

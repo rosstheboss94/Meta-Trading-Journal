@@ -95,8 +95,8 @@ const TradeDetailForm = () => {
       {
         Market: marketRef.current.value,
         Ticker: tickerRef.current.value,
-        "Chart Patterns": selectedChartPatterns.join(" "),
-        "Chart indicators": selectedChartIndicators.join(" "),
+        //"Chart Patterns": selectedChartPatterns.join(" "),
+        //"Chart indicators": selectedChartIndicators.join(" "),
         "Take Profit": tradeTargetRef.current.childNodes[0].children[1].value,
         Entry: tradeTargetRef.current.childNodes[1].children[1].value,
         "Stop Loss": tradeTargetRef.current.childNodes[1].children[1].value,
@@ -135,7 +135,7 @@ const TradeDetailForm = () => {
               <Form.Control ref={tickerRef} type="text" />
             </Form.Group>
 
-            <Form.Group className="chart_patterns">
+            {/*<Form.Group className="chart_patterns">
               <Form.Label>
                 Chart Patterns:{" "}
                 <Dropdown
@@ -173,7 +173,7 @@ const TradeDetailForm = () => {
                 rows="3"
                 value={selectedChartIndicators.join(" ")}
               />
-            </Form.Group>
+      </Form.Group>*/}
 
             <Row ref={tradeTargetRef} className="trade_targets">
               <Form.Group as={Col} controlId="formGridState">

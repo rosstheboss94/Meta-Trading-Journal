@@ -86,7 +86,7 @@ const LoginModal = (props) => {
             </Form.Group>
           </Form>
         </Modal.Body>
-        <Modal.Footer className="test d-flex justify-content-center border-top-0 text-danger">
+        <Modal.Footer className="d-flex justify-content-center border-top-0">
           <Button
             className="w-75"
             variant="success"

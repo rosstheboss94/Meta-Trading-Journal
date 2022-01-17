@@ -6,7 +6,7 @@ import googleLogo from "../../../assets/google-logo.png";
 import { authActions } from "../../../store/slices/authenticationSlice";
 import { modalActions } from "../../../store/slices/modal-state-slice";
 import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
-import "./create_user.css";
+import "./create_user.scss";
 import { doc, setDoc } from "firebase/firestore";
 import { db } from "../../../firebase/firebase";
 
@@ -52,7 +52,7 @@ const CreateUserModal = (props) => {
   return (
     <Modal
       show={showModal}
-      size="md"
+      size="sm"
       aria-labelledby="contained-modal-title-vcenter"
       className="create_user_modal"
       contentClassName="bg-dark"
@@ -85,7 +85,7 @@ const CreateUserModal = (props) => {
           </div>
 
           <Form.Group className="d-flex justify-content-center mb-3">
-            <div className="d-flex align-items-center bg-danger w-50">
+            <div className="d-flex align-items-center bg-danger w-75">
               <img src={googleLogo} className="google-logo-img p-2" />
               <p className="text-white m-0">Continue with Google</p>
             </div>

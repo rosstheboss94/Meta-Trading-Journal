@@ -10,24 +10,35 @@
  
     
 }
-
-.test{
-    
-}
 .create_user_modal .form-control{
     background-color: rgba(18, 21, 22, 0.500) !important;
+    color: white;
 
 }
 .create_user_modal input::placeholder{
-    color: rgb(33,37,41) !important;
+    color: white
 
 }
 
 
 .modal-header{
     background-color: $bg_color;
+
+    button{
+        background-color: white;
+    }
+}
+
+.modal-body{
+    background-color: $bg_grey;
+}
+
+.modal-footer{
+    background-color: $bg_grey;
 }
 
 .create_an_account_link{
-    color: $purp_light;
+    background-color: $bg_grey;
+    border: none;
+    color: white;
 }

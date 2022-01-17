@@ -2,7 +2,7 @@ import Navbar from "react-bootstrap/Navbar";
 import Nav from 'react-bootstrap/Nav'
 import { Container, Button } from "react-bootstrap";
 import LoginButton from "../buttons/login_button/login_button";
-import "./navigation.css"
+import "./navigation.scss"
 const navigation = () => {
   
   return (

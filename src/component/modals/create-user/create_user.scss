@@ -1,3 +1,5 @@
+@import "../../../_config.scss";
+
 .google-logo-img{
     height: 40px;
     width: 40px;
@@ -15,5 +17,17 @@
 
 
 .modal-header{
-    background-color: #010f01;
+    background-color: $bg_color;
+
+    button{
+        background-color: white;
+    }
+}
+
+.modal-body{
+    background-color: $bg_grey;
+}
+
+.modal-footer{
+    background-color: $bg_grey;
 }

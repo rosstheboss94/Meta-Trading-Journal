@@ -5,7 +5,7 @@ import { Card, Col } from "react-bootstrap";
 import { journalActions } from "../../../store/slices/journal_slice";
 import { db } from "../../../firebase/firebase";
 import JournalIcon from "../../../assets/journal-icon.png";
-import Paginat from "../../pagination/pagination";
+import LoginButton from "../../buttons/login_button/login_button";
 import "./journal_card.scss";
 
 const JournalCard = () => {
@@ -18,7 +18,11 @@ const JournalCard = () => {
   const journalSnapshotRef = useRef({});
 
   useEffect(() => {
+
+    console.log(currentUser + " " + isLoggedIn);
+
     if (currentUser != " " && isLoggedIn == true) {
+ 
       getJournals();
     }
 
@@ -84,8 +88,6 @@ const JournalCard = () => {
 
   const openJournal = (e, journalName) => {
     e.preventDefault();
-    console.log("image clicked");
-    //console.log(journalName);
     dispatch(
       journalActions.goTojournal({
         selectedJournal: journalName,
@@ -96,7 +98,7 @@ const JournalCard = () => {
 
   return (
     <Fragment>
-      {isLoggedIn ? journalLayoutRef.current : <div>not working</div>}
+      {isLoggedIn ? journalLayoutRef.current : <div className="d-flex justify-content-center align-items-center">Sign In To Start Tracking Your Trades Now! <LoginButton /></div>}
     </Fragment>
   );
 };
