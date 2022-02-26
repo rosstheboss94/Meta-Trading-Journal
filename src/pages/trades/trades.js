@@ -1,4 +1,4 @@
-import { Container, Row, Button } from "react-bootstrap";
+import { Container, Button } from "react-bootstrap";
 import { useSelector, useDispatch } from "react-redux";
 import { journalActions } from "../../store/slices/journal_slice";
 import TradeCard from "../../component/cards/trade-card/trade_card";

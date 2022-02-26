@@ -1,23 +1,39 @@
 import { db } from "../../firebase/firebase";
-import { doc, collection, setDoc } from "firebase/firestore";
+import { doc, collection, setDoc, getDocs } from "firebase/firestore";
 
 export class FirebaseDb {
   constructor() {}
 
-  async addJournal(user, journalName, data) {
+  addJournal(user, journalName, data) {
     setDoc(this.getJournalPath(user, journalName), data);
   }
 
   addTrade(user, journalName, data) {
     setDoc(this.getTradePath(user, journalName), data, { merge: true });
   }
+
+  getTrades = async (user, journalName) => {
+    const querySnapshot = await getDocs(
+      this.getAllTradesPath(user, journalName)
+    );
+    let trades = [];
+
+    querySnapshot.forEach((doc) => {
+      trades.push({ tradeData: doc.data(), id: doc.id });
+    });
+
+    return trades;
+  };
+
   getJournalPath(user, journalName) {
-    //Creates document on the path w/ id being journalName
     return doc(db, `users/${user}/journals/${journalName}`);
   }
 
   getTradePath(user, journalName) {
-    //Creates Document w/ auto gen. id at the end of the path
     return doc(collection(db, `users/${user}/journals/${journalName}/trades`));
+  }
+
+  getAllTradesPath(user, journalName) {
+    return collection(db, `users/${user}/journals/${journalName}/trades`);
   }
 }

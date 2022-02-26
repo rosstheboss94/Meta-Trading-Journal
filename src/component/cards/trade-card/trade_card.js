@@ -3,7 +3,9 @@ import { useSelector } from "react-redux";
 import { Card, Col, Pagination, Row, Button, Popover, OverlayTrigger } from "react-bootstrap";
 import { getDocs, collection, doc, updateDoc } from "firebase/firestore";
 import { db } from "../../../firebase/firebase";
+import { getAllTradesController } from "../../../controllers/trade/trade-controllers";
 import "./trade_card.scss";
+
 
 const TradeCard = () => {
   const selectedJournal = useSelector((state) => state.journal.selectedJournal);
@@ -14,30 +16,16 @@ const TradeCard = () => {
   const [updatedWinOrLoss, setUpdatedWinOrLoss] = useState(false);
 
   useEffect(() => {
-    getTrades();
+    callTradeController();
 
     return () => {
       setTrades([]);
     };
   }, [updatedWinOrLoss]);
 
-  const getTrades = async () => {
-    const querySnapshot = await getDocs(
-      collection(
-        db,
-        "users",
-        currentUser,
-        "journals",
-        selectedJournal,
-        "trades"
-      )
-    );
-    
-    querySnapshot.forEach((doc) => {
-      setTrades((ps) => {
-        return [...ps, { tradeData: doc.data(), id: doc.id }];
-      });
-    });
+  const callTradeController = async () => {
+    const allTrades = await getAllTradesController(currentUser, selectedJournal)
+    setTrades(allTrades);
   };
 
   const setWinOrLoss = async (e, tradeId, tradeResult) => {
