@@ -1,9 +1,10 @@
 import { Fragment, useEffect, useState } from "react";
 import { useSelector } from "react-redux";
-import { Card, Col, Pagination, Row, Button, Popover, OverlayTrigger } from "react-bootstrap";
-import { getDocs, collection, doc, updateDoc } from "firebase/firestore";
-import { db } from "../../../firebase/firebase";
+
 import { getAllTradesController } from "../../../controllers/trade/trade-controllers";
+import { setWinOrLossController } from "../../../controllers/trade/trade-controllers";
+
+import { Card, Col, Pagination, Row, Button, Popover, OverlayTrigger } from "react-bootstrap";
 import "./trade_card.scss";
 
 
@@ -16,37 +17,24 @@ const TradeCard = () => {
   const [updatedWinOrLoss, setUpdatedWinOrLoss] = useState(false);
 
   useEffect(() => {
-    callTradeController();
+    callTradeController("GET-TRADES");
 
     return () => {
       setTrades([]);
     };
   }, [updatedWinOrLoss]);
 
-  const callTradeController = async () => {
-    const allTrades = await getAllTradesController(currentUser, selectedJournal)
-    setTrades(allTrades);
-  };
-
-  const setWinOrLoss = async (e, tradeId, tradeResult) => {
-    e.preventDefault();
-
-    const tradeRef = doc(
-      db,
-      "users",
-      currentUser,
-      "journals",
-      selectedJournal,
-      "trades",
-      tradeId
-    );
-
-    const updatedDoc = await updateDoc(tradeRef, {
-      WinOrLoss: tradeResult.toUpperCase(),
-    });
-
-    setUpdatedWinOrLoss((ps) => !ps);
-
+  const callTradeController = async (action, data) => {
+    switch (action) {
+      case "GET-TRADES":
+        const allTrades = await getAllTradesController(currentUser, selectedJournal);
+        setTrades(allTrades);
+        break;
+      case "SET-WIN-OR-LOSS":
+        setWinOrLossController(currentUser, selectedJournal, data.tradeId, data.tradeResult);
+        setUpdatedWinOrLoss((ps) => !ps);
+        break;
+    }
   };
 
   const indexOfLastTrade = currentPage * tradesPerPage;
@@ -86,8 +74,8 @@ const TradeCard = () => {
                   overlay={
                     <Popover id={`popover-positioned-bottom`}>
                       <Popover.Body className="d-flex flex-column">
-                        <Button onClick={(e) => setWinOrLoss(e,data.id,"WIN")}>Win</Button>
-                        <Button onClick={(e) => setWinOrLoss(e,data.id,"LOSS")}>Loss</Button>
+                        <Button onClick={() => callTradeController("SET-WIN-OR-LOSS", {tradeId: data.id, tradeResult: "WIN"})}>Win</Button>
+                        <Button onClick={() => callTradeController("SET-WIN-OR-LOSS", {tradeId: data.id, tradeResult: "LOSS"})}>Loss</Button>
                       </Popover.Body>
                     </Popover>
                   }
