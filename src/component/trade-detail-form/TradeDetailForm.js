@@ -1,4 +1,4 @@
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 
 import { journalActions } from "../../store/slices/journal_slice";
@@ -11,6 +11,7 @@ const TradeDetailForm = () => {
   const marketRef = useRef("");
   const tickerRef = useRef("");
   const tradeTargetRef = useRef();
+  const [chartImg, setChartImg] = useState();
   const enterTrade = useSelector((state) => state.journal.enterTrade);
   const selectedJournal = useSelector((state) => state.journal.selectedJournal);
   const currentUser = useSelector((state) => state.auth.currentUser);
@@ -18,16 +19,20 @@ const TradeDetailForm = () => {
 
   const callTradeController = (e) => {
     e.preventDefault();
+    
+    console.log(e);
+    setChartImg(e.target.form[2].files[0])
+    console.log(chartImg);
 
     const data = {
       Market: marketRef.current.value,
       Ticker: tickerRef.current.value,
       "Take Profit": tradeTargetRef.current.childNodes[0].children[1].value,
       Entry: tradeTargetRef.current.childNodes[1].children[1].value,
-      "Stop Loss": tradeTargetRef.current.childNodes[1].children[1].value,
+      "Stop Loss": tradeTargetRef.current.childNodes[1].children[1].value
     };
 
-    addTradeController(currentUser, selectedJournal, data);
+    addTradeController(currentUser, selectedJournal, chartImg, data);
     dispatch(journalActions.goToTradeForm({ enterTrade: false }));
   };
 
@@ -57,6 +62,11 @@ const TradeDetailForm = () => {
             <Form.Group className="trade_ticker">
               <Form.Label>Ticker:</Form.Label>
               <Form.Control ref={tickerRef} type="text" />
+            </Form.Group>
+
+            <Form.Group controlId="formFileSm" className="mb-3">
+              <Form.Label>Chart Picture:</Form.Label>
+              <Form.Control type="file" />
             </Form.Group>
 
             <Row ref={tradeTargetRef} className="trade_targets">

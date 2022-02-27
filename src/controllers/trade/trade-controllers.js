@@ -1,8 +1,12 @@
 import { FirebaseDb } from "../../models/firebasedb/firebase-db-model";
+import { FirebaseStorage } from "../../models/firebase-storage/firebase-storage-model";
 
-export const addTradeController = (currentUser, selectedJournal, data) => {
+export const addTradeController = (currentUser, selectedJournal, chartImg, data) => {
   const db = new FirebaseDb();
   db.addTrade(currentUser, selectedJournal, data);
+
+  const storage = new FirebaseStorage();
+  storage.uploadImg(chartImg);
 };
 
 export const getAllTradesController = async (currentUser, selectedJournal) => {
