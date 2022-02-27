@@ -8,3 +8,10 @@ export const createUserController = async (email, password) => {
     const db = new FirebaseDb();
     db.addUserToDb(user);
 }
+
+export const signInController = async (email, password) => {
+    const auth = new FirebaseAuth();
+    const user = await auth.signIn(email, password)
+
+    return user;
+}
