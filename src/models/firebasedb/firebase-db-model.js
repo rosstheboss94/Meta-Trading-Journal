@@ -12,6 +12,18 @@ export class FirebaseDb {
     setDoc(this.addTradePath(user, journalName), data, { merge: true });
   }
 
+  getJournals = async (user) =>{
+    const querySnapshot = await getDocs(this.getAllJournalsPath(user))
+    const journals = [];
+
+      querySnapshot.forEach((doc) => {
+        journals.push({[doc.id]: doc.data()})
+        console.log(doc.data());
+      });
+    
+      return journals;
+  }
+
   getTrades = async (user, journalName) => {
     const querySnapshot = await getDocs(
       this.getAllTradesPath(user, journalName)
@@ -40,6 +52,10 @@ export class FirebaseDb {
 
   addTradePath(user, journalName) {
     return doc(collection(db, `users/${user}/journals/${journalName}/trades`));
+  }
+
+  getAllJournalsPath(user){
+    return collection(db, `users/${user}/journals`)
   }
 
   getAllTradesPath(user, journalName) {

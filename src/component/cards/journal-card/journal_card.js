@@ -6,6 +6,7 @@ import { journalActions } from "../../../store/slices/journal_slice";
 import { db } from "../../../firebase/firebase";
 import JournalIcon from "../../../assets/journal-icon.png";
 import LoginButton from "../../buttons/login_button/login_button";
+import { getJournalsController } from "../../../controllers/journal/journal-controllers";
 import "./journal_card.scss";
 
 const JournalCard = () => {
@@ -22,7 +23,6 @@ const JournalCard = () => {
     console.log(currentUser + " " + isLoggedIn);
 
     if (currentUser != " " && isLoggedIn == true) {
- 
       getJournals();
     }
 
@@ -33,8 +33,42 @@ const JournalCard = () => {
     };
   }, [currentUser]);
 
-  const getJournals = () => {
-    getDocs(collection(db, "users", currentUser, "journals"))
+  const getJournals = async () => {
+    const journals = await getJournalsController(currentUser)
+
+    journalLayoutRef.current = journalDataRef.current.map(
+      (journal, idx) => {
+        let key = Object.keys(journal);
+        return (
+          <Card key={idx} className="mb-3">
+            <Card.Body className="journal-card">
+              <Col md lg={1}>
+                <img
+                  src={JournalIcon}
+                  onClick={(e) => {
+                    openJournal(e, journal[key].name);
+                  }}
+                />
+              </Col>
+              <Col md lg={3} className="journal-name">
+                {isLoggedIn ? journal[key].name : "name"}
+              </Col>
+              <Col>
+                <textarea
+                  className="journal-notes"
+                  value={
+                    isLoggedIn ? journal[key].strategy : "test strategy"
+                  }
+                ></textarea>
+              </Col>
+            </Card.Body>
+          </Card>
+        );
+      }
+    );
+  
+  
+    /*getDocs(collection(db, "users", currentUser, "journals"))
       .then((snapshot) => {
         snapshot.forEach((doc) => {
           journalSnapshotRef.current = {
@@ -49,7 +83,7 @@ const JournalCard = () => {
             [journal]: journalSnapshotRef.current[journal],
           });
         }
-
+        
         journalLayoutRef.current = journalDataRef.current.map(
           (journal, idx) => {
             let key = Object.keys(journal);
@@ -82,8 +116,9 @@ const JournalCard = () => {
         );
       })
       .then(() => {
+        console.log(journalDataRef.current.value);
         setJournalsLoaded(true);
-      });
+      });*/
   };
 
   const openJournal = (e, journalName) => {
