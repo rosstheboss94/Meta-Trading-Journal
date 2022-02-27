@@ -1,53 +1,26 @@
 import { useRef } from "react";
-import firebaseApp from "../../../firebase/firebase";
 import { useSelector, useDispatch } from "react-redux";
-import { Form, Button, Modal } from "react-bootstrap";
-import googleLogo from "../../../assets/google-logo.png";
+
 import { authActions } from "../../../store/slices/authenticationSlice";
 import { modalActions } from "../../../store/slices/modal-state-slice";
-import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
-import "./create_user.scss";
-import { doc, setDoc } from "firebase/firestore";
-import { db } from "../../../firebase/firebase";
+import { createUserController } from "../../../controllers/auth/auth-controller";
 
-const CreateUserModal = (props) => {
+import { Form, Button, Modal } from "react-bootstrap";
+import googleLogo from "../../../assets/google-logo.png";
+import "./create_user.scss";
+
+
+const CreateUserModal = () => {
   const emailRef = useRef();
   const passwordRef = useRef();
   const showModal = useSelector((state) => state.modal.createUserModalState);
   const dispatch = useDispatch();
 
-  const CreateUserWithEmailAndPass = () => {
-    let user;
-    const auth = getAuth(firebaseApp);
-
-    createUserWithEmailAndPassword(
-      auth,
-      emailRef.current.value,
-      passwordRef.current.value
-    )
-      .then((userCredential) => {
-        user = userCredential.user;
-        AddUserToDb(user);
-      })
-      .catch((error) => {});
-
+  const callCreateUserController = () => {
+    createUserController(emailRef.current.value, passwordRef.current.value);
     dispatch(authActions.userLoggingIn({ userLoginStatus: false }));
     dispatch(modalActions.closeModal())
-  };
-
-  const AddUserToDb = async (user) => {
-    const usersRef = doc(
-      db,
-      "users",
-      user.email,
-      "journals",
-      "journal1",
-      "trades",
-      "trade1"
-    );
-    const setDocResult = await setDoc(usersRef, {});
-    console.log(setDocResult);
-  };
+  }
 
   return (
     <Modal
@@ -97,7 +70,7 @@ const CreateUserModal = (props) => {
           className="w-75"
           variant="success"
           type="submit"
-          onClick={CreateUserWithEmailAndPass}
+          onClick={callCreateUserController}
         >
           Sign-Up
         </Button>

@@ -41,12 +41,23 @@ export class FirebaseDb {
     updateDoc(tradeRef, { WinOrLoss: tradeResult.toUpperCase() });
   };
 
+  addUserToDb = async (user) => {
+    const newUserRef = this.addNewUserPath(user);
+
+    const setDocResult = await setDoc(newUserRef, {});
+    console.log(setDocResult);
+  }
+
   getJournalPath(user, journalName) {
     return doc(db, `users/${user}/journals/${journalName}`);
   }
 
   getTradePath(user, journalName, tradeId) {
     return doc(db, `users/${user}/journals/${journalName}/trades/${tradeId}`);
+  }
+
+  addNewUserPath(user) {
+    return doc(db, `users/${user.email}/journals/journal1/trades/trade1`);
   }
 
   addTradePath(user, journalName) {
