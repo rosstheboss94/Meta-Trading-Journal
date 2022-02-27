@@ -18,7 +18,6 @@ export class FirebaseDb {
 
       querySnapshot.forEach((doc) => {
         journals.push({[doc.id]: doc.data()})
-        console.log(doc.data());
       });
     
       return journals;
