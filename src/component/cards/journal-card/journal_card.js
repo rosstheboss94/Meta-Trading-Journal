@@ -27,7 +27,8 @@ const JournalCard = () => {
     };
   }, [currentUser]);
 
-  const openJournal = (journalName) => {
+  const openJournal = (e, journalName) => {
+    e.preventDefault();
     dispatch(
       journalActions.goTojournal({
         selectedJournal: journalName,
@@ -49,7 +50,7 @@ const JournalCard = () => {
                 <img
                   src={JournalIcon}
                   onClick={(e) => {
-                    openJournal(journal[key].name);
+                    openJournal(e,journal[key].name);
                   }}
                 />
               </Col>

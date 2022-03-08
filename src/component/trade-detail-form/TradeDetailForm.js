@@ -11,7 +11,7 @@ const TradeDetailForm = () => {
   const marketRef = useRef("");
   const tickerRef = useRef("");
   const tradeTargetRef = useRef();
-  const [chartImg, setChartImg] = useState();
+  const [chartImg, setChartImg] = useState({});
   const enterTrade = useSelector((state) => state.journal.enterTrade);
   const selectedJournal = useSelector((state) => state.journal.selectedJournal);
   const currentUser = useSelector((state) => state.auth.currentUser);
@@ -19,11 +19,9 @@ const TradeDetailForm = () => {
 
   const callTradeController = (e) => {
     e.preventDefault();
-    
-    console.log(e);
-    setChartImg(e.target.form[2].files[0])
-    console.log(chartImg);
 
+    setChartImg(e.target.form[2].files[0])
+    
     const data = {
       Market: marketRef.current.value,
       Ticker: tickerRef.current.value,
@@ -44,7 +42,7 @@ const TradeDetailForm = () => {
           dispatch(journalActions.goToTradeForm({ enterTrade: false }));
         }}
         placement="end"
-        classname="trade-canvas"
+        className="trade-canvas"
       >
         <Offcanvas.Header closeButton>
           <Offcanvas.Title>Trade Detail</Offcanvas.Title>
