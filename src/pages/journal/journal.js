@@ -55,7 +55,7 @@ const Journal = () => {
           </Button>{" "}
         </h3>
       </div>
-      <section className="d-flex flex-column justify-content-center mt-3 h-100">
+      <section className="d-flex flex-column mt-3 h-100">
         {displayJournalForm ? (
           <JournalForm
             addJournal={callJournalController}

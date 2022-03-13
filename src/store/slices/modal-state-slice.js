@@ -4,6 +4,7 @@ const initialState = {
   createUserModalState: false,
   loginModalState: false,
   chartModalState: false,
+  imgUrl: ""
 };
 
 export const modalSlice = createSlice({
@@ -27,7 +28,8 @@ export const modalSlice = createSlice({
     },
     showChartModal: (state, action) => {
       state.createUserModalState = !action.payload.modalState;
-      state.loginModalState = !action.payload.modalState;
+      state.loginModalState = !action.payload.modalState; 
+      state.imgUrl = action.payload.imgUrl;
       state.chartModalState = action.payload.modalState;
     }
   },

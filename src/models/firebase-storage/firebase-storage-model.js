@@ -9,19 +9,22 @@ export class FirebaseStorage {
     );
 
     const metaData = {
-      contentType: 'image/jpeg'
+      contentType: "image/jpeg",
     };
 
-    const uploadTask = uploadBytesResumable(storageRef, chartImg, metaData);
+    try {
+      const uploadTask = uploadBytesResumable(storageRef, chartImg, metaData);
 
-    let uploaded = false;
+      let uploaded = false;
 
-    uploadTask.on("state_changed",null,null, () => {
-      uploaded = true;
-      console.log("finished")
-    });
+      uploadTask.on("state_changed", null, null, () => {
+        uploaded = true;
+        console.log("finished");
+      });
+    } catch (err) {
+      console.log(err);
+    }
   };
-
 
   setImgUrl = async (user, journalName, chartImg) => {
     const imageRef = ref(
@@ -34,6 +37,6 @@ export class FirebaseStorage {
   };
 
   getTradeImg = async (imgUrl) => {
-    getDownloadURL()
-  }
+    getDownloadURL();
+  };
 }

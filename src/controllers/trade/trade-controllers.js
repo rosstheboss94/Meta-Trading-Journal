@@ -8,19 +8,22 @@ export const addTradeController = (
   data
 ) => {
   const storage = new FirebaseStorage();
+  console.log(chartImg);
   storage.uploadImg(currentUser, selectedJournal, chartImg);
 
   setTimeout(() => {
     storage.setImgUrl(currentUser, selectedJournal, chartImg).then((downloadUrl) => {
       data.Url = downloadUrl;
+      console.log(downloadUrl);
       const db = new FirebaseDb();
       db.addTrade(currentUser, selectedJournal, data);
     });
-  }, 2000);
+  }, 5000);
 };
 
-export const getTradeImg = (imgUrl) => {
-
+export const updateReturnController = (currentUser, selectedJournal, tradeId, tradeReturn) => {
+  const db = new FirebaseDb();
+  db.updateTrade(currentUser, selectedJournal, tradeId, tradeReturn)
 }
 
 export const getAllTradesController = async (currentUser, selectedJournal) => {

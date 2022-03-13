@@ -6,11 +6,15 @@ import "./chart-img-modal.scss";
 import { useEffect } from "react";
 import { useRef } from "react";
 
-const ChartImgModal = ({imgUrl}) => {
+const ChartImgModal = () => {
   const dispatch = useDispatch();
   const showChart = useSelector((state) => state.modal.chartModalState);
+  const imgUrl = useSelector((state) => state.modal.imgUrl);
 
   console.log(imgUrl);
+  useEffect(() => {
+
+  },[])
 
   return (
     <Modal

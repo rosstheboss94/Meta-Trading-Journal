@@ -34,7 +34,7 @@
     display: flex;
     flex-direction: column;
     height: 85%;
-    background-color: #353b48 ;
+    //background-color: #353b48 ;
   }
 
   .trades-headers{
@@ -44,6 +44,7 @@
     font-weight: bold;
     background-color: #2f3542;
     color: #dcdde1;
+    margin-bottom: .25rem;
 
     .col{
       display: flex;

@@ -36,6 +36,12 @@ export class FirebaseDb {
     return trades;
   };
 
+  updateTrade = (user, journalName, tradeId, tradeReturn) => {
+    const tradeRef = this.getTradePath(user, journalName, tradeId);
+    updateDoc(tradeRef, { Return: tradeReturn });
+  }
+
+
   setWinOrLoss = async (user, journalName, tradeId, tradeResult) => {
     const tradeRef = this.getTradePath(user, journalName, tradeId);
     updateDoc(tradeRef, { WinOrLoss: tradeResult.toUpperCase() });

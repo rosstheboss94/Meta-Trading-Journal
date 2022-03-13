@@ -10,7 +10,9 @@ import "./TradeDetailForm.scss";
 const TradeDetailForm = () => {
   const marketRef = useRef("");
   const tickerRef = useRef("");
+  const notesRef = useRef("");
   const tradeTargetRef = useRef();
+  const fileRef = useRef();
   const [chartImg, setChartImg] = useState({});
   const enterTrade = useSelector((state) => state.journal.enterTrade);
   const selectedJournal = useSelector((state) => state.journal.selectedJournal);
@@ -20,11 +22,14 @@ const TradeDetailForm = () => {
   const callTradeController = (e) => {
     e.preventDefault();
 
-    setChartImg(e.target.form[2].files[0])
+    setChartImg(fileRef.current.files[0])
     
     const data = {
       Market: marketRef.current.value,
       Ticker: tickerRef.current.value,
+      Return: "$0.00",
+      Notes: notesRef.current.value,
+      WinOrLoss: "N/A",
       "Take Profit": tradeTargetRef.current.childNodes[0].children[1].value,
       Entry: tradeTargetRef.current.childNodes[1].children[1].value,
       "Stop Loss": tradeTargetRef.current.childNodes[1].children[1].value
@@ -52,19 +57,15 @@ const TradeDetailForm = () => {
             <Form.Group className="trade_market">
               <Form.Label>Market:</Form.Label>
               <Form.Select ref={marketRef}>
-                <option value="Crypto">Crypto</option>
-                <option value="Stocks">Stocks</option>
+                <option value="CRYPTO">CRYPTO</option>
+                <option value="STOCK">STOCK</option>
+                <option value="FOREX">FOREX</option>
               </Form.Select>
             </Form.Group>
 
             <Form.Group className="trade_ticker">
               <Form.Label>Ticker:</Form.Label>
               <Form.Control ref={tickerRef} type="text" />
-            </Form.Group>
-
-            <Form.Group controlId="formFileSm" className="mb-3">
-              <Form.Label>Chart Picture:</Form.Label>
-              <Form.Control type="file" />
             </Form.Group>
 
             <Row ref={tradeTargetRef} className="trade_targets">
@@ -82,6 +83,16 @@ const TradeDetailForm = () => {
                 <Form.Control type="text" />
               </Form.Group>
             </Row>
+
+            <Form.Group controlId="formFileSm" className="mb-3">
+              <Form.Label>Chart Picture:</Form.Label>
+              <Form.Control ref={fileRef} type="file" />
+            </Form.Group>
+
+            <Form.Group className="trade_notes mb-3">
+              <Form.Label>Notes:</Form.Label>
+              <Form.Control ref={notesRef} as="textarea" rows={5} />
+            </Form.Group>
 
             <Form.Group className="d-flex justify-content-center">
               <Button
