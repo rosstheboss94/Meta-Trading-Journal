@@ -1,46 +1,110 @@
 @import "../../../config.scss";
 
-.trade-card {
-  color: black;
-  .trade-labels {
-    .col {
-      display: flex;
-      flex-direction: row;
-      justify-content: center;
-      font-weight: bold;
-    }
+.trade-card-container {
+  border-bottom: 1px solid #7180937c !important;
+  border-radius: 3px !important;
+ 
+
+  p {
+    margin: 0;
+  }
+
+  .trade-card {
+    height: 2rem;
+    color: black;
+    padding: 0;
   }
 
   .trade-data {
+    display: flex;
+    align-items: center;
+    height: 100%;
+    font-size: 0.8rem;
+    color: white;
+
     .col {
       display: flex;
-      flex-direction: row;
       justify-content: center;
       align-items: center;
+      padding: 0;
+      height: 100%;
     }
 
-    button{
-      background-color: white;
-      color: black;
+    button:focus:not(:focus-visible){
+      box-shadow: none;
+    }
+    .notes-button {
+      height: 70%;
+      width: 80%;
+      padding-top: 0;
+      padding-bottom: 0;
+      background-color: black;
       border: none;
     }
+
+    .wl-button-default {
+      height: 70%;
+      width: 80%;
+      background-color: #353b48;
+      padding-top: 0;
+      padding-bottom: 0;
+      border: 1px solid #353b48;
+    }
+
+    .wl-button-loss {
+      height: 70%;
+      width: 80%;
+      background-color: #e84118;
+      padding-top: 0;
+      padding-bottom: 0;
+      border: 1px solid #353b48;
+    }
+
+    .wl-button-win {
+      height: 70%;
+      width: 80%;
+      background-color: #4cd137;
+      padding-top: 0;
+      padding-bottom: 0;
+      border: 1px solid #353b48;
+    }
+
+    .chart-button {
+      height: 70%;
+      width: 80%;
+      padding-top: 0;
+      padding-bottom: 0;
+      color: #353b48;
+    }
+
+    .chart-button:hover {
+      color: white;
+    }
+
+  }
+
+  .trade-win {
+    box-shadow: 0 0 8px $emerald_green !important;
+    border: 1px solid $emerald_green !important;
+  }
+
+  .trade-loss {
+    box-shadow: 0 0 8px red !important;
+    border: 1px solid red !important;
+  }
+
+  .testing {
+    color: #2f3542 !important;
+   
   }
 }
 
-.trade-win {
-  box-shadow: 0 0 8px $emerald_green !important;
-  border: 1px solid $emerald_green !important;
+.bg-even {
+  //background-color: #57606f !important;
+  background-color: black !important;
 }
 
-.trade-loss {
-  box-shadow: 0 0 8px red !important;
-  border: 1px solid red !important;
-}
-
-.page-number{
-  margin-right: .25rem;
-  a{
-    background-color: #6c757d;
-    color: white;
-  }
+.bg-odd {
+  //background-color: #353b48 !important;
+  background-color: black !important;
 }

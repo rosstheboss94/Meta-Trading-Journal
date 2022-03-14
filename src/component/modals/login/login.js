@@ -1,40 +1,31 @@
-import { Fragment, useRef, useState } from "react";
-import { Form, Button, Modal } from "react-bootstrap";
-import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
-import firebaseApp from "../../../firebase/firebase";
-import googleLogo from "../../../assets/google-logo.png";
+import { Fragment, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
+
 import { authActions } from "../../../store/slices/authenticationSlice";
 import { modalActions } from "../../../store/slices/modal-state-slice";
 import CreateUserModal from "../create-user/create_user";
+import { signInController } from "../../../controllers/auth/auth-controller";
 
+import { Form, Button, Modal } from "react-bootstrap";
+import googleLogo from "../../../assets/google-logo.png";
 import "./login.scss";
 
-const LoginModal = (props) => {
+const LoginModal = () => {
   const emailRef = useRef();
   const passwordRef = useRef();
   const showModal = useSelector((state) => state.modal.createUserModalState);
   const showLoginModal = useSelector((state) => state.modal.loginModalState);
   const dispatch = useDispatch();
 
-  const userLogin = () => {
-    const auth = getAuth(firebaseApp);
-    signInWithEmailAndPassword(
-      auth,
-      emailRef.current.value,
-      passwordRef.current.value
-    )
-      .then((userCredential) => {
-        const user = userCredential.user;
-        dispatch(
-          authActions.userLoggingIn({
-            userLoginStatus: true,
-            currentUser: user.email,
-          })
-        );
-        dispatch(modalActions.closeModal())
+  const callSignInController = async () => {
+    const user = await signInController(emailRef.current.value, passwordRef.current.value)
+    dispatch(
+      authActions.userLoggingIn({
+        userLoginStatus: true,
+        currentUser: user.email,
       })
-      .catch((error) => {});
+    );
+    dispatch(modalActions.closeModal())
   };
 
   const showCreateUserModal = (e) => {
@@ -91,7 +82,7 @@ const LoginModal = (props) => {
             className="w-75"
             variant="success"
             type="submit"
-            onClick={userLogin}
+            onClick={callSignInController}
           >
             LOGIN
           </Button>

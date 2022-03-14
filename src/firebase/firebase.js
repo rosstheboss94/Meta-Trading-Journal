@@ -1,5 +1,6 @@
 import { initializeApp } from "firebase/app";
-import { getFirestore, setDoc, doc } from "firebase/firestore";
+import { getFirestore } from "firebase/firestore";
+import { getStorage } from "firebase/storage";
 
 
 const firebaseConfig = {
@@ -16,17 +17,7 @@ const firebaseConfig = {
 const firebaseApp = initializeApp(firebaseConfig);
 
 export const db = getFirestore();
-
-/*const testdoc = doc(db, "users", "test user");
-function testfunc(){
-  const docdata = {
-    email:"change again"
-  };
-
-  setDoc(testdoc, docdata)
-}
-
-testfunc();*/
+export const storage = getStorage(firebaseApp);
 
 export default firebaseApp;
 

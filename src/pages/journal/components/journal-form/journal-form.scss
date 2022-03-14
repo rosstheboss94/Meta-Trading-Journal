@@ -1,0 +1,38 @@
+@import "../../../../config";
+
+.journal-form{
+    padding: 1.5rem;
+    background-color: $bg_grey;
+    border-radius: 3px;
+
+    .form-label{
+        color: #707880;
+    }
+    p{
+        color: #87929b;
+        font-size: 1.5rem;
+    }
+    p span{
+        font-size: 1.5rem;
+        color: $emerald_green;
+    }
+}
+
+.journal-form-header{
+    button{
+        height: 80%;
+        padding: 0;
+        border: none;
+        background-color: $bg_grey;
+        border-radius: 3px;
+    }
+
+    svg{
+        height: 100%;
+        width: 100%;
+        border-radius: 0;
+        color: red;
+        border-radius: 3px;
+
+    }
+}
