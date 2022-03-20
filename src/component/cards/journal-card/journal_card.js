@@ -51,7 +51,7 @@ const JournalCard = () => {
         return (
           <Card key={key} className="mb-3">
             <Card.Body className="journal-card">
-              <Col md lg={1}>
+              <Col xs={2} md lg={1}>
                 <img
                   src={JournalIcon}
                   onClick={(e) => {
@@ -59,7 +59,7 @@ const JournalCard = () => {
                   }}
                 />
               </Col>
-              <Col md lg={3} className="journal-name">
+              <Col xs={4} md lg={3} className="journal-name">
                 {isLoggedIn ? journal[key].name : "name"}
               </Col>
               <Col>

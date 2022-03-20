@@ -5,7 +5,7 @@ const JournalForm = ({addJournal, closeForm, nameRef, stratRef}) => {
     return (
         <Form className="journal-form">
           <Row className="journal-form-header">
-            <Col>
+            <Col xs={10}>
               <p>
                 Add a <span> NEW</span> Journal!{" "}
               </p>

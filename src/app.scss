@@ -8,12 +8,10 @@
 
 .journal-content {
   width: 60%;
-  
 }
 
-.news-content {
-  height: 100%;
-  width: 40%;
-  
-  padding: 1rem;
+@media only screen and (max-width: 600px) {
+ .journal-content{
+   width: 100%;
+ }
 }

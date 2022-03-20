@@ -1,10 +1,9 @@
 import { Fragment, useEffect, useState, useRef } from "react";
 import { useSelector, useDispatch } from "react-redux";
 
-import ChartImgModal from "../../modals/chartImg/chart-img-modal";
 import { getAllTradesController } from "../../../controllers/trade/trade-controllers";
 import { setWinOrLossController } from "../../../controllers/trade/trade-controllers";
-import { updateReturnController } from "../../../controllers/trade/trade-controllers";
+
 import { modalActions } from "../../../store/slices/modal-state-slice";
 
 import {
@@ -19,6 +18,8 @@ import {
   FormControl,
 } from "react-bootstrap";
 import { FcDocument } from "react-icons/fc";
+import { BsThreeDots } from "react-icons/bs";
+import { IconContext } from "react-icons";
 import "./trade_card.scss";
 
 const TradeCard = () => {
@@ -63,15 +64,6 @@ const TradeCard = () => {
         );
         setUpdatedWinOrLoss((ps) => !ps);
         break;
-      case "RETURN":
-        updateReturnController(
-          currentUser,
-          selectedJournal,
-          data.tradeId,
-          data.tradeReturn
-        );
-        setUpdatedWinOrLoss((ps) => !ps);
-        break;
       default:
     }
   };
@@ -104,6 +96,45 @@ const TradeCard = () => {
           winlossButton = "wl-button-default";
         }
 
+        const targetsDataDesktop = (
+          <Fragment>
+            <Col xs={2}>
+              <p>{data.tradeData.Entry}</p>
+            </Col>
+            <Col xs={1}>
+              <p>{data.tradeData["Take Profit"]}</p>
+            </Col>
+            <Col xs={1}>
+              <p>{data.tradeData["Stop Loss"]}</p>
+            </Col>
+          </Fragment>
+        );
+
+        const targetsDataMobile = (
+          <Fragment>
+            <Col xs={2} className="d-flex justify-content-center align-items-center h-100">
+              <OverlayTrigger
+                trigger="click"
+                placement="bottom"
+                overlay={
+                  <Popover id={`popover-positioned-bottom`}>
+                    <Popover.Header as="h3">Targets</Popover.Header>
+                    <Popover.Body>
+                      <Col>
+                        <div><p>{`Entry: ${data.tradeData.Entry}`}</p></div>
+                        <div><p>{`Take Profits: ${data.tradeData["Take Profit"]}`}</p></div>
+                        <div><p>{`Stop Loss: ${data.tradeData["Stop Loss"]}`}</p></div>
+                      </Col>
+                    </Popover.Body>
+                  </Popover>
+                }
+              >
+              <Button variant="secondary"><BsThreeDots /></Button>
+              </OverlayTrigger>
+            </Col>
+          </Fragment>
+        );
+
         return (
           <Card
             className={`trade-card-container ${bgColorClass}`}
@@ -111,63 +142,25 @@ const TradeCard = () => {
           >
             <Card.Body className="trade-card">
               <div className="trade-data">
-                <Col>
+                <Col xs={2} className="d-flex justify-content-center align-items-center h-100">
                   <p>{data.tradeData.Market}</p>
                 </Col>
-                <Col>
+                <Col xs={2} className="d-flex justify-content-center align-items-center h-100">
                   <p>{data.tradeData.Ticker}</p>
                 </Col>
-                <Col>
-                  <p>{data.tradeData.Entry}</p>
+                {window.screen.width < 576 ? targetsDataMobile : targetsDataDesktop}
+                <Col xs={1} className="d-flex justify-content-center align-items-center h-100">
+                  <p>{data.tradeData.RiskReward}</p>
                 </Col>
-                <Col>
-                  <p>{data.tradeData["Take Profit"]}</p>
-                </Col>
-                <Col>
-                  <p>{data.tradeData["Stop Loss"]}</p>
-                </Col>
-                <Col>
-                  <OverlayTrigger
-                    trigger="click"
-                    key="bottom"
-                    placement="bottom"
-                    overlay={
-                      <Popover id={`popover-positioned-bottom}`}>
-                        <Popover.Header as="h3">Return</Popover.Header>
-                        <Popover.Body className="d-flex flex-column align-items-center">
-                          <FormControl
-                            className="mb-2"
-                            ref={returnRef}
-                            type="text"
-                          />
-                          <Button
-                            onClick={() => {
-                              callTradeController("RETURN", {
-                                tradeId: data.id,
-                                tradeReturn: returnRef.current.value,
-                              });
-                            }}
-                          >
-                            Update
-                          </Button>
-                        </Popover.Body>
-                      </Popover>
-                    }
-                  >
-                    <Button variant="secondary" className="notes-button">
-                      {data.tradeData.Return}
-                    </Button>
-                  </OverlayTrigger>
-                </Col>
-                <Col>
+                <Col xs={2} className="d-flex justify-content-center align-items-center h-100">
                   <OverlayTrigger
                     trigger="click"
                     placement="bottom"
                     overlay={
                       <Popover id={`popover-positioned-bottom`}>
-                        <Popover.Body className="d-flex flex-column">
+                        <Popover.Body className="d-flex flex-column bg-dark">
                           <Button
-                            className="mb-2"
+                            className="win-button mb-2"
                             onClick={() =>
                               callTradeController("SET-WIN-OR-LOSS", {
                                 tradeId: data.id,
@@ -178,6 +171,7 @@ const TradeCard = () => {
                             Win
                           </Button>
                           <Button
+                            className="loss-button"
                             onClick={() =>
                               callTradeController("SET-WIN-OR-LOSS", {
                                 tradeId: data.id,
@@ -196,7 +190,7 @@ const TradeCard = () => {
                     </Button>
                   </OverlayTrigger>
                 </Col>
-                <Col>
+                <Col xs={1} className="d-flex justify-content-center align-items-center h-100">
                   <OverlayTrigger
                     trigger="click"
                     key="bottom"
@@ -211,13 +205,18 @@ const TradeCard = () => {
                     }
                   >
                     <Button variant="secondary" className="notes-button">
-                      <FcDocument />
+                      <IconContext.Provider value={{className:"note-icon"}}>
+                        <div>
+                        <FcDocument />
+                        </div>
+                      </IconContext.Provider>
+                      
                     </Button>
                   </OverlayTrigger>
                 </Col>
-                <Col>
+                <Col xs={2} className="d-flex justify-content-center align-items-center h-100">
                   <Button
-                    variant="outline-dark"
+                    variant="dark"
                     className="chart-button"
                     onClick={(e) => {
                       e.preventDefault();

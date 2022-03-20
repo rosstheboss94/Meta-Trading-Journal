@@ -8,7 +8,7 @@ import LoginModal from "../../component/modals/login/login";
 import { modalActions } from "../../store/slices/modal-state-slice";
 import { addJournalController } from "../../controllers/journal/journal-controllers";
 
-import { Button } from "react-bootstrap";
+import { Button, Col } from "react-bootstrap";
 import "./journal.scss";
 
 const Journal = () => {
@@ -18,7 +18,7 @@ const Journal = () => {
   const journalNameRef = useRef("");
   const journalStratRef = useRef("");
   const dispatch = useDispatch();
-  
+
   useEffect(() => {
     setDisplayJournalForm(false);
     return () => {
@@ -48,18 +48,22 @@ const Journal = () => {
   return (
     <div className="journal_container d-flex flex-column">
       <div className="journal-container-header">
-        <h3>
-          My Journals{" "}
+        <Col>
+          <h3>My Journals </h3>
+        </Col>
+        <Col className="d-flex justify-content-end">
           <Button variant="success" onClick={newJournal}>
             New Journal
           </Button>{" "}
-        </h3>
+        </Col>
       </div>
-      <section className="d-flex flex-column mt-3 h-100">
+      <section className="d-flex flex-column justify-content-center h-100">
         {displayJournalForm ? (
           <JournalForm
             addJournal={callJournalController}
-            closeForm={() => {setDisplayJournalForm(false)}}
+            closeForm={() => {
+              setDisplayJournalForm(false);
+            }}
             nameRef={journalNameRef}
             stratRef={journalStratRef}
           />

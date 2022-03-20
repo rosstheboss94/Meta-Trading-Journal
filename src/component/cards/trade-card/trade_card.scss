@@ -3,11 +3,12 @@
 .trade-card-container {
   border-bottom: 1px solid #7180937c !important;
   border-radius: 3px !important;
- 
+  background-color: black !important;
 
   p {
     margin: 0;
   }
+
 
   .trade-card {
     height: 2rem;
@@ -22,6 +23,10 @@
     font-size: 0.8rem;
     color: white;
 
+    .popover-arrow{
+      background-color: #212529 !important;
+    }
+
     .col {
       display: flex;
       justify-content: center;
@@ -30,7 +35,7 @@
       height: 100%;
     }
 
-    button:focus:not(:focus-visible){
+    button:focus:not(:focus-visible) {
       box-shadow: none;
     }
     .notes-button {
@@ -80,31 +85,58 @@
     .chart-button:hover {
       color: white;
     }
-
-  }
-
-  .trade-win {
-    box-shadow: 0 0 8px $emerald_green !important;
-    border: 1px solid $emerald_green !important;
-  }
-
-  .trade-loss {
-    box-shadow: 0 0 8px red !important;
-    border: 1px solid red !important;
-  }
-
-  .testing {
-    color: #2f3542 !important;
-   
   }
 }
 
-.bg-even {
-  //background-color: #57606f !important;
-  background-color: black !important;
+.win-button {
+  background-color: #4cd137 !important;
+  padding-top: 0 !important;
+  padding-bottom: 0 !important;
+  border: 1px solid #353b48 !important;
 }
 
-.bg-odd {
-  //background-color: #353b48 !important;
-  background-color: black !important;
+.loss-button {
+  background-color: #e84118 !important;
+  padding-top: 0 !important;
+  padding-bottom: 0 !important;
+  border: 1px solid #353b48 !important;
+}
+
+@media only screen and (max-width: 576px) {
+  .trade-card-container {
+    p {
+      font-size: 0.5rem;
+    }
+
+    .trade-data {
+      button {
+        font-size: 0.5rem;
+      }
+
+      .notes-button {
+        padding: 0;
+      }
+
+      .note-icon {
+        height: 100%;
+        width: 100%;
+      }
+
+      /*.wl-button-default {
+        font-size: .5rem;    
+      }
+
+      .wl-button-loss {
+        font-size: .5rem;
+      }
+  
+      .wl-button-win {
+        font-size: .5rem;
+      }
+  
+      .chart-button {
+        font-size: .5rem;
+      }*/
+    }
+  }
 }
