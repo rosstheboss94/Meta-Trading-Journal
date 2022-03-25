@@ -9,7 +9,6 @@
     margin: 0;
   }
 
-
   .trade-card {
     height: 2rem;
     color: black;
@@ -23,69 +22,57 @@
     font-size: 0.8rem;
     color: white;
 
-    .popover-arrow{
-      background-color: #212529 !important;
-    }
+      .col {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 0;
+        height: 100%;
+      }
 
-    .col {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      padding: 0;
-      height: 100%;
-    }
+      .notes-button {
+        height: 70%;
+        width: 80%;
+        padding-top: 0;
+        padding-bottom: 0;
+        background-color: black;
+        border: none;
+      }
 
-    button:focus:not(:focus-visible) {
-      box-shadow: none;
-    }
-    .notes-button {
-      height: 70%;
-      width: 80%;
-      padding-top: 0;
-      padding-bottom: 0;
-      background-color: black;
-      border: none;
-    }
+      .wl-button-default {
+        height: 70%;
+        width: 80%;
+        background-color: #353b48;
+        padding-top: 0;
+        padding-bottom: 0;
+        border: 1px solid #353b48;
+      }
 
-    .wl-button-default {
-      height: 70%;
-      width: 80%;
-      background-color: #353b48;
-      padding-top: 0;
-      padding-bottom: 0;
-      border: 1px solid #353b48;
-    }
+      .wl-button-loss {
+        height: 70%;
+        width: 80%;
+        background-color: #e84118;
+        padding-top: 0;
+        padding-bottom: 0;
+        border: 1px solid #353b48;
+      }
 
-    .wl-button-loss {
-      height: 70%;
-      width: 80%;
-      background-color: #e84118;
-      padding-top: 0;
-      padding-bottom: 0;
-      border: 1px solid #353b48;
-    }
+      .wl-button-win {
+        height: 70%;
+        width: 80%;
+        background-color: #4cd137;
+        padding-top: 0;
+        padding-bottom: 0;
+        border: 1px solid #353b48;
+      }
 
-    .wl-button-win {
-      height: 70%;
-      width: 80%;
-      background-color: #4cd137;
-      padding-top: 0;
-      padding-bottom: 0;
-      border: 1px solid #353b48;
-    }
-
-    .chart-button {
-      height: 70%;
-      width: 80%;
-      padding-top: 0;
-      padding-bottom: 0;
-      color: #353b48;
-    }
-
-    .chart-button:hover {
-      color: white;
-    }
-  }
+      .chart-button {
+        height: 70%;
+        width: 80%;
+        padding-top: 0;
+        padding-bottom: 0;
+      }
+  } 
 }
 
 .win-button {
@@ -102,7 +89,7 @@
   border: 1px solid #353b48 !important;
 }
 
-@media only screen and (max-width: 576px) {
+@media only screen and (max-width: 991px) {
   .trade-card-container {
     p {
       font-size: 0.5rem;
@@ -114,6 +101,7 @@
       }
 
       .notes-button {
+        
         padding: 0;
       }
 
@@ -121,22 +109,7 @@
         height: 100%;
         width: 100%;
       }
-
-      /*.wl-button-default {
-        font-size: .5rem;    
-      }
-
-      .wl-button-loss {
-        font-size: .5rem;
-      }
-  
-      .wl-button-win {
-        font-size: .5rem;
-      }
-  
-      .chart-button {
-        font-size: .5rem;
-      }*/
     }
   }
 }
+

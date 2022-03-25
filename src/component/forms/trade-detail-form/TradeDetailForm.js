@@ -1,8 +1,8 @@
 import { useRef, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 
-import { journalActions } from "../../store/slices/journal_slice";
-import { addTradeController } from "../../controllers/trade/trade-controllers";
+import { journalActions } from "../../../store/slices/journal_slice";
+import { addTradeController } from "../../../controllers/trade/trade-controllers";
 
 import { Button, Row, Col, Offcanvas, Form } from "react-bootstrap";
 import "./TradeDetailForm.scss";
@@ -12,6 +12,7 @@ const TradeDetailForm = () => {
   const tickerRef = useRef("");
   const notesRef = useRef("");
   const tradeTargetRef = useRef();
+  const riskRewardRef = useRef();
   const fileRef = useRef();
   const [chartImg, setChartImg] = useState({});
   const enterTrade = useSelector((state) => state.journal.enterTrade);
@@ -27,7 +28,7 @@ const TradeDetailForm = () => {
     const data = {
       Market: marketRef.current.value,
       Ticker: tickerRef.current.value,
-      Return: "$0.00",
+      RiskReward: riskRewardRef.current.value,
       Notes: notesRef.current.value,
       WinOrLoss: "N/A",
       "Take Profit": tradeTargetRef.current.childNodes[0].children[1].value,
@@ -83,6 +84,11 @@ const TradeDetailForm = () => {
                 <Form.Control type="text" />
               </Form.Group>
             </Row>
+
+            <Form.Group className="mb-3">
+              <Form.Label>Risk/Reward Ratio:</Form.Label>
+              <Form.Control ref={riskRewardRef} type="text" />
+            </Form.Group>
 
             <Form.Group controlId="formFileSm" className="mb-3">
               <Form.Label>Chart Picture:</Form.Label>

@@ -2,7 +2,7 @@ import { useSelector } from "react-redux"
 import Navigation from "./component/navbar/navigation";
 import Journals from "../src/pages/journal/journal";
 import Trades from "./pages/trades/trades";
-import TradeDetail from "../src/component/trade-detail-form/TradeDetailForm";
+import TradeDetail from "./component/forms/trade-detail-form/TradeDetailForm";
 import NewsPanel from "./component/news-panel/news_panel";
 import { Fragment } from "react";
 import ChartImgModal from "./component/modals/chartImg/chart-img-modal";

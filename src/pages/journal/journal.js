@@ -2,7 +2,7 @@ import { useState, useRef, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 
 import JournalCard from "../../component/cards/journal-card/journal_card";
-import JournalForm from "./components/journal-form/journal-form";
+import JournalForm from "../../component/forms/journal-form/journal-form";
 import LoginModal from "../../component/modals/login/login";
 
 import { modalActions } from "../../store/slices/modal-state-slice";

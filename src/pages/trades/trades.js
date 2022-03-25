@@ -37,7 +37,7 @@ const Trades = () => {
 
   const targetsMobile = (
     <Fragment>
-      <Col xs={2} className="d-flex justify-content-center align-items-center">
+      <Col xs md={2} className="d-flex justify-content-center align-items-center">
         <p>Targets</p>
       </Col>
     </Fragment>
@@ -55,23 +55,23 @@ const Trades = () => {
       </div>
       <section className="trade-section">
         <div className="trades-headers">
-          <Col xs={2} className="d-flex justify-content-center align-items-center">
+          <Col xs md={2} className="d-flex justify-content-center align-items-center">
             <p>Market</p>
           </Col>
-          <Col xs={2} className="d-flex justify-content-center align-items-center">
+          <Col xs md={2} className="d-flex justify-content-center align-items-center">
             <p>Ticker</p>
           </Col>
-          {window.screen.width < 576 ? targetsMobile : targetsDesktop}
-          <Col xs={1} className="d-flex justify-content-center align-items-center">
+          {window.screen.width <= 991 ? targetsMobile : targetsDesktop}
+          <Col xs md={1} className="d-flex justify-content-center align-items-center">
             <p>R/R</p>
           </Col>
-          <Col xs={2} className="d-flex justify-content-center align-items-center">
+          <Col xs md={2} className="d-flex justify-content-center align-items-center">
             <p>W/L</p>
           </Col>
-          <Col xs={1} className="d-flex justify-content-center align-items-center">
+          <Col xs md={1} className="d-flex justify-content-center align-items-center">
             <BsJournalText />
           </Col>
-          <Col xs={2} className="d-flex justify-content-center align-items-center">
+          <Col xs md={2} className="d-flex justify-content-center align-items-center">
             <FcPicture />
           </Col>
         </div>

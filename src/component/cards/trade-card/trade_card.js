@@ -10,12 +10,9 @@ import {
   Card,
   Col,
   Pagination,
-  Row,
   Button,
   Popover,
   OverlayTrigger,
-  Form,
-  FormControl,
 } from "react-bootstrap";
 import { FcDocument } from "react-icons/fc";
 import { BsThreeDots } from "react-icons/bs";
@@ -29,9 +26,9 @@ const TradeCard = () => {
   const [tradesPerPage, setTradesPerPage] = useState(10);
   const [updatedWinOrLoss, setUpdatedWinOrLoss] = useState(false);
   const [tradesLoaded, setTradesLoaded] = useState(false);
+  const updatedWinLoss = useRef(false);
   const trades = useRef([]);
   const currentTrades = useRef([]);
-  const returnRef = useRef("$0.00");
   const dispatch = useDispatch();
   const imgUrlRef = useRef("");
 
@@ -41,13 +38,12 @@ const TradeCard = () => {
     return () => {
       trades.current = [];
     };
-  }, [updatedWinOrLoss]);
-
-  console.log(imgUrlRef.current.value);
+  }, []);
 
   const callTradeController = async (action, data) => {
     switch (action) {
       case "GET-TRADES":
+        setTradesLoaded(false);
         const allTrades = await getAllTradesController(
           currentUser,
           selectedJournal
@@ -62,7 +58,7 @@ const TradeCard = () => {
           data.tradeId,
           data.tradeResult
         );
-        setUpdatedWinOrLoss((ps) => !ps);
+        updatedWinLoss.current = true;
         break;
       default:
     }
@@ -71,16 +67,12 @@ const TradeCard = () => {
   const indexOfLastTrade = currentPage * tradesPerPage;
   const indexOfFirstTrade = indexOfLastTrade - tradesPerPage;
 
+
   if (tradesLoaded) {
     currentTrades.current = trades.current
       .map((data, idx) => {
         let bgColorClass;
         let winlossButton;
-
-        //console.log("in currentTrades");
-        //console.log(data.id);
-
-        console.log(data.tradeData.Url);
 
         if (idx % 2 == 0) {
           bgColorClass = "bg-even";
@@ -112,7 +104,10 @@ const TradeCard = () => {
 
         const targetsDataMobile = (
           <Fragment>
-            <Col xs={2} className="d-flex justify-content-center align-items-center h-100">
+            <Col
+              xs={2}
+              className="d-flex justify-content-center align-items-center h-100"
+            >
               <OverlayTrigger
                 trigger="click"
                 placement="bottom"
@@ -121,15 +116,23 @@ const TradeCard = () => {
                     <Popover.Header as="h3">Targets</Popover.Header>
                     <Popover.Body>
                       <Col>
-                        <div><p>{`Entry: ${data.tradeData.Entry}`}</p></div>
-                        <div><p>{`Take Profits: ${data.tradeData["Take Profit"]}`}</p></div>
-                        <div><p>{`Stop Loss: ${data.tradeData["Stop Loss"]}`}</p></div>
+                        <div>
+                          <p>{`Entry: ${data.tradeData.Entry}`}</p>
+                        </div>
+                        <div>
+                          <p>{`Take Profits: ${data.tradeData["Take Profit"]}`}</p>
+                        </div>
+                        <div>
+                          <p>{`Stop Loss: ${data.tradeData["Stop Loss"]}`}</p>
+                        </div>
                       </Col>
                     </Popover.Body>
                   </Popover>
                 }
               >
-              <Button variant="secondary"><BsThreeDots /></Button>
+                <Button variant="secondary">
+                  <BsThreeDots />
+                </Button>
               </OverlayTrigger>
             </Col>
           </Fragment>
@@ -142,42 +145,64 @@ const TradeCard = () => {
           >
             <Card.Body className="trade-card">
               <div className="trade-data">
-                <Col xs={2} className="d-flex justify-content-center align-items-center h-100">
+                <Col
+                  xs={2}
+                  className="d-flex justify-content-center align-items-center h-100"
+                >
                   <p>{data.tradeData.Market}</p>
                 </Col>
-                <Col xs={2} className="d-flex justify-content-center align-items-center h-100">
+                <Col
+                  xs={2}
+                  className="d-flex justify-content-center align-items-center h-100"
+                >
                   <p>{data.tradeData.Ticker}</p>
                 </Col>
-                {window.screen.width < 576 ? targetsDataMobile : targetsDataDesktop}
-                <Col xs={1} className="d-flex justify-content-center align-items-center h-100">
+                {window.screen.width < 992
+                  ? targetsDataMobile
+                  : targetsDataDesktop}
+                <Col
+                  xs={1}
+                  className="d-flex justify-content-center align-items-center h-100"
+                >
                   <p>{data.tradeData.RiskReward}</p>
                 </Col>
-                <Col xs={2} className="d-flex justify-content-center align-items-center h-100">
+                <Col
+                  xs={2}
+                  className="d-flex justify-content-center align-items-center h-100"
+                >
                   <OverlayTrigger
                     trigger="click"
                     placement="bottom"
+                    onToggle={() => {
+                      if(updatedWinLoss.current === true){
+                        callTradeController("GET-TRADES")
+                      }
+                    }}
                     overlay={
-                      <Popover id={`popover-positioned-bottom`}>
+                      <Popover
+                        id={`popover-positioned-bottom`}
+                        className="test-arrow"
+                      >
                         <Popover.Body className="d-flex flex-column bg-dark">
                           <Button
                             className="win-button mb-2"
-                            onClick={() =>
+                            onClick={() => {
                               callTradeController("SET-WIN-OR-LOSS", {
                                 tradeId: data.id,
                                 tradeResult: "WIN",
-                              })
-                            }
+                              });
+                            }}
                           >
                             Win
                           </Button>
                           <Button
                             className="loss-button"
-                            onClick={() =>
+                            onClick={() => {
                               callTradeController("SET-WIN-OR-LOSS", {
                                 tradeId: data.id,
                                 tradeResult: "LOSS",
-                              })
-                            }
+                              });
+                            }}
                           >
                             Loss
                           </Button>
@@ -190,7 +215,10 @@ const TradeCard = () => {
                     </Button>
                   </OverlayTrigger>
                 </Col>
-                <Col xs={1} className="d-flex justify-content-center align-items-center h-100">
+                <Col
+                  xs={1}
+                  className="d-flex justify-content-center align-items-center h-100"
+                >
                   <OverlayTrigger
                     trigger="click"
                     key="bottom"
@@ -205,16 +233,18 @@ const TradeCard = () => {
                     }
                   >
                     <Button variant="secondary" className="notes-button">
-                      <IconContext.Provider value={{className:"note-icon"}}>
-                        <div>
-                        <FcDocument />
+                      <IconContext.Provider value={{ className: "note-icon" }}>
+                        <div className="h-100">
+                          <FcDocument />
                         </div>
                       </IconContext.Provider>
-                      
                     </Button>
                   </OverlayTrigger>
                 </Col>
-                <Col xs={2} className="d-flex justify-content-center align-items-center h-100">
+                <Col
+                  xs={2}
+                  className="d-flex justify-content-center align-items-center h-100"
+                >
                   <Button
                     variant="dark"
                     className="chart-button"

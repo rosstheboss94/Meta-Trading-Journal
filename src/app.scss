@@ -10,6 +10,44 @@
   width: 60%;
 }
 
+p{
+  color: white;
+  font-family: Helvetica, sans-serif;
+}
+
+button{
+  color: white;
+  font-family: Helvetica, sans-serif;
+}
+
+button:focus:not(:focus-visible) {
+  box-shadow: none;
+}
+
+span{
+  color: white;
+  font-family: Helvetica, sans-serif;
+}
+
+.popover-body,
+.bs-popover-bottom,
+.popover-arrow::after {
+  background-color: #212529;
+  border-bottom-color: #212529 !important;
+}
+
+.popover-header{
+  background-color: #6c757d !important;
+}
+
+input{
+  color: white !important;
+}
+input:focus{
+  border-color: rgb(18, 21, 22) !important;
+  box-shadow: 0 0 0 0.25rem rgb(18, 21, 22) !important;
+}
+
 @media only screen and (max-width: 600px) {
  .journal-content{
    width: 100%;
